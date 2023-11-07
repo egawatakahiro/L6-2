@@ -1,0 +1,10 @@
+<% @cart.cart_items.each do |cart_item| %>
+  <p>
+    <%= cart_item.product.name %> (<%= cart_item.product.price %>, 数量: <%= cart_item.quantity %>)
+    <%= link_to "カートから削除", cart_item, method: :delete %>
+  </p>
+<% end %>
+
+<p>
+    合計金額：<%= @cart.calculate_total_price %> 円
+</p>

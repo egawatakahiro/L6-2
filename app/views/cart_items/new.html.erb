@@ -1,0 +1,5 @@
+<%= form_for @cart_item do |f| %>
+  <%= f.label :quantity %>
+  <%= f.number_field :quantity %>
+  <%= link_to "商品を登録する", cart_items_path %>
+<% end %>

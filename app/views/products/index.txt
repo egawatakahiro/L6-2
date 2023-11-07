@@ -1,0 +1,12 @@
+<h1><font color="red">商品一覧</font></h1>
+
+<% @products.each do |product| %>
+    <p>
+        商品名： <%= product.name %>
+    </p>
+    <p>
+        商品価格： <%= product.price %> 円
+    </p>
+    
+    <%= link_to "商品を追加する", new_cart_item_path(product_id: product.id) %>
+<% end %>
