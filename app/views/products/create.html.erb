@@ -1,2 +1,13 @@
-<h1>Products#create</h1>
-<p>Find me in app/views/products/create.html.erb</p>
+<h1>新しい商品を登録します</h1>
+<%= form_tag '/products/new', method: :post, data: { turbo: false } do %>
+    <%= label_tag :p_name, '商品名：' %>
+    <%= text_field_tag :p_name %><br>
+    <%= label_tag :p_price, '商品価格：' %>
+    <%= text_field_tag :p_price %><br>
+    
+    <p>
+        <%= submit_tag '登録' %>
+    </p>
+    
+<% end %>
+<%= link_to '戻る', products_path %>

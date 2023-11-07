@@ -1,5 +1,26 @@
-<%= form_for @cart_item do |f| %>
-  <%= f.label :quantity %>
-  <%= f.number_field :quantity %>
-  <%= link_to "商品を登録する", cart_items_path %>
-<% end %>
+<h1>カートに商品を追加します</h1>
+
+<p>
+    <p>
+        商品ID：<%= params[:id] %><br>
+    </p>
+
+    <p>
+        商品名：<%= params[:name] %><br>
+    </p>
+
+    <p>
+        商品価格：<%= params[:price] %>円<br>
+    </p>
+
+    
+    <%= form_tag '/cart_items/create', method: :past, data: { turbo: false } do %>
+        <%= label_tag :qty, '数量' %>
+        <%= text_field_tag :qty %><br>
+        <%= hidden_field_tag :id, params[:id] %>
+        <!--<%= hidden_field_tag :name, params[:name] %>-->
+        <!--<%= hidden_field_tag :price, params[:price] %>-->
+    <% end %>
+
+    <%= button_to "商品を登録する", 'create', method: :post %>
+</p>

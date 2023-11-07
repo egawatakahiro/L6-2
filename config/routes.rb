@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
   resources :products
-  root 'top#main'
+  # root 'top#main'
+  # get 'top/main'
+  
+  post 'products/new'
+  post 'cart_item/new'
+  post 'cart_item/create'
+  post 'carts/show'
+  delete 'products/destroy'
+  resources :products
+  root 'products#index'
   get 'top/main'
+  
   #get 'cart_items/'
   resources :cart_items, only: [:new, :create, :destroy]
   resources :carts, only: [:show]

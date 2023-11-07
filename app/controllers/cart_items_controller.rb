@@ -1,27 +1,17 @@
 class CartItemsController < ApplicationController
   def new
-    @products = Product.new
   end
 
   def create
-    @products = Product.new(params.require(:product).permit(:name, :price))
+    @cart_item = CartItem.new(
+      qty: params[:qty],
+      product_id: params[:id],
+      cart_id: 1)
+    @cart_item.save
     
-    if @products.save
-      flash[:success] = "商品が正常に追加されました。"
-      redirect_to products_path
-    else
-      render 'new'
-    end
+    redirect_to root_path
   end
 
   def destroy
-    product = Product.find_by(name: params[:name], price: params[:price])
-    if product
-      product.destroy
-      flash[:success] = '商品が削除されました'
-    else
-      flash[:error] = '商品が見つかりませんでした'
-    end
-    redirect_to products_path
   end
 end

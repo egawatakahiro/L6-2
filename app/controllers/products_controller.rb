@@ -7,54 +7,21 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @products = Product.new
+    @product = Product.new(name: params[:p_name], price: params[:p_price])
+    @product.save
+    redirect_to root_path
   end
 
   def create
-    @products = Product.new(params.require(:product).permit(:name, :price))
-    
-    if @products.save
-      flash[:success] = "商品が正常に登録されました。"
-      redirect_to products_path
-    else
-      render 'new'
-    end
   end
 
-  # def destroy
-    # @products = Product.find_by(name: params[:name], price: params[:price])
-    # @products.destroy
-    # redirect_to products_path
-    # @products = Product.find_by(name: params[:name], price: params[:price]).destroy
-    
-    # if @products
-    #   @products.destroy
-    #   flash[:success] = '商品が削除されました'
-    # else
-    #   flash[:error] = '商品が見つかりませんでした'
-    # end
-    # redirect_to products_path
-    
-    # Product.find(params[:name], params[:price]).destroy
-    # redirect_to products_path
-    
   def destroy
-    # product = Product.find_by(name: params[:name], price: params[:price])
-    # if product
-    #   product.destroy
-    #   flash[:success] = '商品が削除されました'
-    # else
-    #   flash[:error] = '商品が見つかりませんでした'
-    # end
-    # redirect_to products_path
     @product.destroy
     
-    redirect_to products_path
+    redirect_to root_path
   end
   
   def set_product
     @product = Product.find(params[:id])
   end
 end
-#   end
-# end
