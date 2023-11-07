@@ -1,7 +1,7 @@
 <% @cart.cart_items.each do |cart_item| %>
   <p>
     <%= cart_item.product.name %> (<%= cart_item.product.price %>, 数量: <%= cart_item.quantity %>)
-    <%= link_to "カートから削除", cart_item, method: :delete %>
+    <%= link_to "カートから削除", cart_items, method: :delete %>
   </p>
 <% end %>
 

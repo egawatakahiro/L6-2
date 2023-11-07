@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+  
+  before_action :set_product, only: [:destroy]
+  
   def index
     @products = Product.all
   end
@@ -36,14 +39,21 @@ class ProductsController < ApplicationController
     # redirect_to products_path
     
   def destroy
-    product = Product.find_by(name: params[:name], price: params[:price])
-    if product
-      product.destroy
-      flash[:success] = '商品が削除されました'
-    else
-      flash[:error] = '商品が見つかりませんでした'
-    end
+    # product = Product.find_by(name: params[:name], price: params[:price])
+    # if product
+    #   product.destroy
+    #   flash[:success] = '商品が削除されました'
+    # else
+    #   flash[:error] = '商品が見つかりませんでした'
+    # end
+    # redirect_to products_path
+    @product.destroy
+    
     redirect_to products_path
+  end
+  
+  def set_product
+    @product = Product.find(params[:id])
   end
 end
 #   end
