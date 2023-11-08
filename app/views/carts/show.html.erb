@@ -1,33 +1,62 @@
-<h1>カートをみる</h1>
-
-<%= @s = 0 %>
-<%= @cart_items.each do |cart_item| %>
-  <p>
-    <%= @q_n = cart_item.qty %>
-    <%= @p_n = cart_item.product_id %><br>
-    
-    <p>
-      商品ID：<%= Product.find(@p_n).id %><br>
-    </p>
-    
-    <p>
-      商品名：<%= Product.find(@p_n).name %><br>
-    </p>
-
-    <p>
-      商品価格：<%= Product.find(@p_n).price %>円<br>
-    </p>
-
-    <p>
-      数量：<%= @q_n %>個<br>
-    </p>
-    
-    <p>
-      合計：<%= @s += Product.find(@p_n).price * @q_n %>円<br>
-    </p>
-  </p>
+<div class = "body">
   
-  <%= button_to "カートから削除" %>
-<% end %>
-
-<h3>合計金額は<%= @s %>円です。</h3>
+  <h1>
+    カートを見る
+  </h1>
+  
+  <%@s = 0  %>
+  <% @cart_items.each do |cart_item| %>
+  
+    <div class = "box">
+      <% if cart_item.product_id.present? %>
+        <% product = Product.find_by(id: cart_item.product_id)  %>
+        <% if product %>
+        
+          <p>
+            <% quantitiy = cart_item.qty %>
+            <% product_id = product.id %>
+            
+            <p>
+              商品ID：<%= product_id %><br>
+            </p>
+            
+            <p>
+              商品名： <%= product.name %><br>
+            </p>
+            
+            <p>
+              商品価格：<%= product.price %>円<br>
+            </p>
+            
+            <p>
+              数量：<%= quantitiy %>個<br>
+            </p>
+            
+            <p>
+              小計：<% subtotal = product.price * quantitiy if product.price && quantitiy %><%= subtotal %>円<br>
+            </p>
+            
+            <% @s += subtotal if subtotal %>
+            
+          </p>
+          <%= button_to "削除", cart_item_path(cart_item), method: :delete %>
+        <% else %>
+          <p>
+            商品がありません。
+          </p>
+        <% end %>
+      <% else %>
+        <p>
+          商品IDが無効です
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <h3>
+    合計金額：<%= @s %>円
+  </h3>
+  
+  <%= link_to products_path, class: "button_main" do %>商品一覧に戻る<% end %>
+    
+</div>
